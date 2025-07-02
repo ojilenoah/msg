@@ -70,7 +70,7 @@ export default function AdminLayout({
       <Navbar />
       <div className="pt-16 flex h-screen">
         <AdminSidebar user={user} />
-        <main className="flex-1 overflow-hidden">{children}</main>
+        <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
     </div>
   )
