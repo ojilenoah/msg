@@ -127,57 +127,6 @@ export function AdminSidebar({ className, user }: AdminSidebarProps) {
           })}
         </ul>
       </nav>
-
-      {/* Bottom Section with User Controls */}
-      <div className="p-2 border-t border-gray-200 dark:border-gray-800 space-y-2">
-        {/* Dark Mode Toggle */}
-        <div className="flex items-center justify-center">
-          {isExpanded ? (
-            <div className="flex items-center justify-between w-full px-3 py-2">
-              <span className="text-sm text-gray-600 dark:text-gray-300">Theme</span>
-              <ModeToggle />
-            </div>
-          ) : (
-            <ModeToggle />
-          )}
-        </div>
-
-        {/* User Menu */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className={cn("w-full justify-start space-x-3 px-3 py-2 h-auto", !isExpanded && "justify-center px-2")}
-            >
-              <Avatar className="h-8 w-8">
-                <AvatarFallback className="bg-blue-600 text-white text-xs">
-                  {getUserInitials(user.email)}
-                </AvatarFallback>
-              </Avatar>
-              {isExpanded && (
-                <div className="flex flex-col items-start">
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">{user.email.split("@")[0]}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">Administrator</span>
-                </div>
-              )}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleSignOut} className="text-red-600 dark:text-red-400">
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Sign out</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
     </div>
   )
 }
