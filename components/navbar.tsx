@@ -75,12 +75,14 @@ export function Navbar() {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link
-              href="/courses"
-              className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-            >
-              Courses
-            </Link>
+            {user && (
+              <Link
+                href="/courses"
+                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                Courses
+              </Link>
+            )}
             {user && (
               <Link
                 href="/dashboard"
