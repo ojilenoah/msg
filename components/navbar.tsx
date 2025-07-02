@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ModeToggle } from "@/components/mode-toggle"
+import { AuthModal } from "@/components/auth-modal"
 import { BookOpen, User, LogOut, Settings } from "lucide-react"
 import { createClient } from "@/lib/supabase"
 import { getCurrentUser } from "@/lib/auth"
@@ -16,6 +17,10 @@ export function Navbar() {
   const pathname = usePathname()
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+    const [authModal, setAuthModal] = useState<{ open: boolean; mode: "login" | "register" }>({
+    open: false,
+    mode: "register",
+  })
 
   useEffect(() => {
     checkUser()
@@ -150,17 +155,32 @@ export function Navbar() {
               </div>
             ) : (
               <div className="flex items-center space-x-2">
-                <Button variant="ghost" asChild>
-                  <Link href="/auth">Sign In</Link>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setAuthModal({ open: true, mode: "login" })}
+                >
+                  Sign In
                 </Button>
-                <Button asChild>
-                  <Link href="/auth">Get Started</Link>
+                <Button 
+                  onClick={() => setAuthModal({ open: true, mode: "register" })}
+                >
+                  Get Started
                 </Button>
               </div>
             )}
           </div>
         </div>
       </div>
+      <AuthModal
+        open={authModal.open}
+        mode={authModal.mode}
+        onClose={() => setAuthModal({ ...authModal, open: false })}
+        onSwitchMode={(mode) => setAuthModal({ ...authModal, mode })}
+        onAuthSuccess={() => {
+          setAuthModal({ ...authModal, open: false })
+          checkUser()
+        }}
+      />
     </nav>
   )
 }
